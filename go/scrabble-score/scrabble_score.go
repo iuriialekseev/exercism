@@ -3,12 +3,12 @@ package scrabble
 
 import "strings"
 
-type LettersScore struct {
+type lettersScore struct {
 	letters string
 	score   int
 }
 
-var ScrabbleScoreCard = []LettersScore{
+var scoreCard = []lettersScore{
 	{"AEIOULNRST", 1},
 	{"DG", 2},
 	{"BCMP", 3},
@@ -23,7 +23,7 @@ func Score(s string) (score int) {
 	upperStr := strings.ToUpper(s)
 
 	for _, letter := range upperStr {
-		for _, letterScore := range ScrabbleScoreCard {
+		for _, letterScore := range scoreCard {
 			if strings.ContainsRune(letterScore.letters, letter) {
 				score += letterScore.score
 			}
