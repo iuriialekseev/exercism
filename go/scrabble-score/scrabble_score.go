@@ -3,31 +3,39 @@ package scrabble
 
 import "strings"
 
-type lettersScore struct {
-	letters string
-	score   int
-}
-
-var scoreCard = []lettersScore{
-	{"AEIOULNRST", 1},
-	{"DG", 2},
-	{"BCMP", 3},
-	{"FHVWY", 4},
-	{"K", 5},
-	{"JX", 8},
-	{"QZ", 10},
+var scoreCard = map[rune]int{
+	'a': 1,
+	'b': 3,
+	'c': 3,
+	'd': 2,
+	'e': 1,
+	'f': 4,
+	'g': 2,
+	'h': 4,
+	'i': 1,
+	'j': 8,
+	'k': 5,
+	'l': 1,
+	'm': 3,
+	'n': 1,
+	'o': 1,
+	'p': 3,
+	'q': 10,
+	'r': 1,
+	's': 1,
+	't': 1,
+	'u': 1,
+	'v': 4,
+	'w': 4,
+	'x': 8,
+	'y': 4,
+	'z': 10,
 }
 
 // Score returns scrabble score of a given string
-func Score(s string) (score int) {
-	upperStr := strings.ToUpper(s)
-
-	for _, letter := range upperStr {
-		for _, letterScore := range scoreCard {
-			if strings.ContainsRune(letterScore.letters, letter) {
-				score += letterScore.score
-			}
-		}
+func Score(str string) (score int) {
+	for _, letter := range strings.ToLower(str) {
+		score += scoreCard[letter]
 	}
 	return
 }
