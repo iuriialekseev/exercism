@@ -5,31 +5,12 @@ import (
 	"errors"
 )
 
-var codonProteins = map[string]string{
-	"AUG": "Methionine",
-	"UAA": "STOP",
-	"UAC": "Tyrosine",
-	"UAG": "STOP",
-	"UAU": "Tyrosine",
-	"UCA": "Serine",
-	"UCC": "Serine",
-	"UCG": "Serine",
-	"UCU": "Serine",
-	"UGA": "STOP",
-	"UGC": "Cysteine",
-	"UGG": "Tryptophan",
-	"UGU": "Cysteine",
-	"UUA": "Leucine",
-	"UUC": "Phenylalanine",
-	"UUG": "Leucine",
-	"UUU": "Phenylalanine",
-}
-
-// ErrInvalidBase for not existing codons
-var ErrInvalidBase = errors.New("codon not exists")
-
-// ErrStop for terminating codons in rna sequence
-var ErrStop = errors.New("terminating codon reached")
+var (
+	// ErrInvalidBase for not existing codons
+	ErrInvalidBase = errors.New("codon not exists")
+	// ErrStop for terminating codons in rna sequence
+	ErrStop = errors.New("terminating codon reached")
+)
 
 const codonLength = 3
 
@@ -55,12 +36,25 @@ func FromRNA(rna string) (proteins []string, err error) {
 
 // FromCodon returns matching protein from given codon
 func FromCodon(codon string) (protein string, err error) {
-	protein, ok := codonProteins[codon]
-	if !ok {
-		return "", ErrInvalidBase
-	}
-	if protein == "STOP" {
-		return "", ErrStop
+	switch codon {
+	case "AUG":
+		protein = "Methionine"
+	case "UUU", "UUC":
+		protein = "Phenylalanine"
+	case "UUA", "UUG":
+		protein = "Leucine"
+	case "UCU", "UCC", "UCA", "UCG":
+		protein = "Serine"
+	case "UAU", "UAC":
+		protein = "Tyrosine"
+	case "UGU", "UGC":
+		protein = "Cysteine"
+	case "UGG":
+		protein = "Tryptophan"
+	case "UAA", "UAG", "UGA":
+		err = ErrStop
+	default:
+		err = ErrInvalidBase
 	}
 	return
 }
