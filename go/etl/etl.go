@@ -6,14 +6,13 @@ import (
 )
 
 // Transform returns new scrabble score system from a given old scrabble score system
-func Transform(m map[int][]string) map[string]int {
-	var letterScores = make(map[string]int)
+func Transform(input map[int][]string) (output map[string]int) {
+	output = make(map[string]int)
 
-	for score, letters := range m {
+	for score, letters := range input {
 		for _, letter := range letters {
-			letterScores[strings.ToLower(letter)] = score
+			output[strings.ToLower(letter)] = score
 		}
 	}
-
-	return letterScores
+	return
 }
