@@ -10,13 +10,15 @@ func IsIsogram(str string) bool {
 	charsOccurrences := make(map[rune]bool)
 
 	for _, char := range strings.ToLower(str) {
-		if _, ok := charsOccurrences[char]; ok {
+		if char == '-' || char == ' ' {
+			continue
+		}
+
+		if charsOccurrences[char] {
 			return false
 		}
 
-		if char != '-' && char != ' ' {
-			charsOccurrences[char] = true
-		}
+		charsOccurrences[char] = true
 	}
 
 	return true
