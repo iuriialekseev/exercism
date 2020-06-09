@@ -24,7 +24,7 @@ defmodule NucleotideCount do
 
   iex> NucleotideCount.histogram('AATAA')
   %{?A => 4, ?T => 1, ?C => 0, ?G => 0}
-  """exercism download --exercise=secret-handshake --track=elixir
+  """
   @spec histogram(charlist()) :: map()
   def histogram(strand) do
     Map.new(@nucleotides, &{&1, count(strand, &1)})
