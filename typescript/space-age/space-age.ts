@@ -10,10 +10,7 @@ enum PlanetRatios {
 }
 
 export default class SpaceAge {
-  public seconds: number;
-
-  constructor(seconds: number) {
-    this.seconds = seconds;
+  constructor(public readonly seconds: number) {
   }
 
   onEarth = (): number => this.toYear(PlanetRatios.Earth);
