@@ -1,4 +1,4 @@
-# Exercism Solutions
+# Exercism
 
 My solutions to Exercism tasks
 
